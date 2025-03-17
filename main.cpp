@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
         strcpy (host, argv[1]);
 
     iot_client = new mqtt_client(client_id, host, port);
+    iot_client->subscribe(NULL, MQTT_TOPIC);
 
     while(1)
     {
@@ -27,9 +28,8 @@ int main(int argc, char *argv[])
         if (rc)
         {
             iot_client->reconnect();
-        }
-        else
             iot_client->subscribe(NULL, MQTT_TOPIC);
+        }
     }
 
     mosqpp::lib_cleanup();
